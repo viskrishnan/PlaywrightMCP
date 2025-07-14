@@ -1,0 +1,17 @@
+// testContexts/test_webTextContext.txt
+import { test, expect } from '@playwright/test';
+
+test('Navigate to T-shirts and verify Faded Short Sleeve T-shirts', async ({ page }) => {
+    // Step 1: Go to the homepage
+    await page.goto('http://www.automationpractice.pl/index.php');
+
+    // Step 2: Click on the 'T-shirts' menu item
+    await page.locator('a[title="T-shirts"]').click();
+
+    // Step 3: Wait for the T-shirts page to load
+    await expect(page).toHaveURL(/controller=category/);
+
+    // Step 4: Verify 'Faded Short Sleeve T-shirts' is in the product list
+    const product = page.locator('.product-name', { hasText: 'Faded Short Sleeve T-shirts' });
+    await expect(product).toBeVisible();
+});
